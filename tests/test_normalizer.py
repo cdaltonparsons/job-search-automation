@@ -1,4 +1,4 @@
-from normalizer import Job
+from normalizer import Job, normalize
 
 def test_job_defaults():
     job = Job(
@@ -35,3 +35,50 @@ def test_job_fields():
     assert job.id == "123"
     assert job.url == "bestjob.com"
     assert job.salary == "150000"
+
+def test_normalize_maps_fields():
+    raw = {
+        "title": "Software Engineer",
+        "company": "Acme Corp",
+        "url": "https://acme.com/jobs/1",
+        "location": "Remote",
+        "source": "rss",
+        "posted_date": "2026-06-01",
+        "description": "Build cool things.",
+        "remote": True,
+        "salary": "120000",
+        "notes": None,
+    }
+    job = normalize(raw)
+    assert job.title == "Software Engineer"
+    assert job.remote == True
+    assert job.notes == None
+    assert job.description == "Build cool things."
+
+def test_normalize_deterministic():
+    raw = {
+        "title": "Software Engineer",
+        "company": "Acme Corp",
+        "url": "https://acme.com/jobs/1",
+        "location": "Remote",
+        "source": "rss",
+        "posted_date": "2026-06-01",
+        "description": "Build cool things.",
+        "remote": True,
+        "salary": "120000",
+        "notes": None,
+    }
+    job1 = normalize(raw)
+    job2 = normalize(raw)
+
+    assert job1.id == job2.id
+
+def test_normalize_sparse_dict():
+    raw = {
+        "title": "Software Engineer",
+        "company": "Acme Corp",
+        "url": "https://acme.com/jobs/1",
+    }
+    job = normalize(raw)
+    assert job.salary is None
+    assert job.remote == False
