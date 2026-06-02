@@ -1,0 +1,15 @@
+[project]
+name = "job-search-automation"
+version = "0.1.0"
+description = "Creating a tool to help with my job search while learning python"
+requires-python = ">=3.10"
+
+dependencies = [
+    # we'll add packages here as we need them
+    # for now, just the testing tool:
+    "pytest",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
