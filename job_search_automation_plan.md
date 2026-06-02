@@ -96,19 +96,19 @@ Every source gets normalized to this before hitting the DB:
 ### Phase 0 — Python Foundations
 > **Coming from Angular/TypeScript?** This phase builds the mental bridges before you touch any scraping or AI code.
 
-- [ ] Set up `pyproject.toml` + `venv` (think: `package.json` + `node_modules` — same idea, different tool)
-- [ ] Learn Python type hints and `dataclasses` (direct analogue to TypeScript interfaces)
-- [ ] Set up `pytest` and write a first passing test
+- [x] Set up `pyproject.toml` + `venv` (think: `package.json` + `node_modules` — same idea, different tool)
+- [x] Learn Python type hints and `dataclasses` (direct analogue to TypeScript interfaces)
+- [x] Set up `pytest` and write a first passing test
 
 > **You'll learn:** Python's data model, module system, and toolchain — and how to map your existing JS/TS mental models onto them.
 
 ---
 
 ### Phase 1 — Foundation
-- [ ] Set up project structure and virtual environment
-- [ ] Build SQLite schema and DB helper module
-- [ ] Write normalizer function (raw dict → standard schema)
-- [ ] Build deduplication logic (hash-based on title + company + url)
+- [x] Set up project structure and virtual environment
+- [x] Build SQLite schema and DB helper module
+- [x] Write normalizer function (raw dict → standard schema)
+- [x] Build deduplication logic (hash-based on title + company + url)
 
 > **You'll learn:** SQLite schema design, hash-based deduplication, Python `dataclasses` as typed structs, and writing isolated unit tests with `pytest`.
 
