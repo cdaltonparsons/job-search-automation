@@ -22,6 +22,9 @@ build/
 *.db
 *.sqlite
 
+# Resume (contains personal info)
+resume.txt
+
 # Playwright
 playwright/.auth/
 

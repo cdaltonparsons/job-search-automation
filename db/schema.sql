@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS jobs (
     remote      INTEGER     NOT NULL DEFAULT 0,
     seen        INTEGER     NOT NULL DEFAULT 0,
     applied     INTEGER     NOT NULL DEFAULT 0,
-    salary      TEXT,
-    notes       TEXT
+    salary          TEXT,
+    notes           TEXT,
+    relevance_score INTEGER
 );

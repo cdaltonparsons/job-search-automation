@@ -16,8 +16,13 @@ def init_db(conn: sqlite3.Connection) -> None:
 
 def insert_job(conn: sqlite3.Connection, job: Job) -> None:
     conn.execute(
-        "INSERT OR IGNORE INTO jobs (id, title, company, url, location, posted_date, description, source, remote, seen, applied, salary, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        (job.id, job.title, job.company, job.url, job.location, job.posted_date, job.description, job.source, job.remote, job.seen, job.applied, job.salary, job.notes)
+        "INSERT OR IGNORE INTO jobs (id, title, company, url, location, posted_date, description, source, remote, seen, applied, salary, notes, relevance_score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (job.id, job.title, job.company, job.url, job.location, job.posted_date, job.description, job.source, job.remote, job.seen, job.applied, job.salary, job.notes, job.relevance_score)
     )
+    conn.commit()
+
+
+def update_job_score(conn: sqlite3.Connection, job_id: str, score: int) -> None:
+    conn.execute("UPDATE jobs SET relevance_score = ? WHERE id = ?", (score, job_id))
     conn.commit()
 

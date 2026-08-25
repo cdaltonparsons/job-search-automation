@@ -17,6 +17,7 @@ class Job:
     applied: bool = False
     notes: Optional[str] = None
     salary: Optional[str] = None
+    relevance_score: Optional[int] = None
 
 def normalize(raw: dict) -> Job:
     title = raw.get("title", "")

@@ -1,0 +1,261 @@
+$bg: #f5f5f7;
+$surface: #ffffff;
+$border: #e0e0e0;
+$text: #1a1a1a;
+$muted: #6e6e73;
+$accent: #0071e3;
+$green: #28a745;
+$score-high: #28a745;
+$score-mid: #f0a500;
+$score-low: #d9534f;
+
+* {
+  box-sizing: border-box;
+}
+
+.dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: $text;
+  background: $bg;
+  min-height: 100vh;
+}
+
+// Stats bar
+.stats-bar {
+  display: flex;
+  gap: 24px;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: $muted;
+
+  .highlight {
+    color: $accent;
+    font-weight: 600;
+  }
+}
+
+// Filters
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+
+  input[type='text'] {
+    flex: 1;
+    min-width: 200px;
+    padding: 6px 10px;
+    border: 1px solid $border;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+
+    &:focus {
+      border-color: $accent;
+    }
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: $muted;
+    cursor: pointer;
+
+    input[type='number'] {
+      width: 52px;
+      padding: 4px 6px;
+      border: 1px solid $border;
+      border-radius: 6px;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+}
+
+// Job list
+.job-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  li {
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 10px;
+    padding: 16px 20px;
+    transition: opacity 0.2s;
+
+    &.seen {
+      opacity: 0.6;
+    }
+
+    &.applied {
+      border-left: 3px solid $green;
+    }
+  }
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+
+  a {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: $accent;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .company {
+    display: inline-block;
+    margin-top: 2px;
+    font-size: 13px;
+    color: $text;
+  }
+
+  .location {
+    font-size: 13px;
+    color: $muted;
+    margin-left: 8px;
+  }
+
+  .score {
+    flex-shrink: 0;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: #f0f0f0;
+    color: $muted;
+
+    // Color by value — applied via [style.color] would need TS;
+    // instead use broad classes set on parent if needed, or keep neutral
+  }
+}
+
+.job-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  font-size: 12px;
+
+  .source {
+    background: #f0f0f0;
+    color: $muted;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .remote-badge {
+    background: #e6f4ea;
+    color: #1e7e34;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .salary {
+    color: $muted;
+  }
+
+  .date {
+    color: $muted;
+    margin-left: auto;
+  }
+}
+
+.job-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  button {
+    padding: 5px 12px;
+    font-size: 13px;
+    border: 1px solid $border;
+    border-radius: 6px;
+    background: $surface;
+    color: $text;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:hover {
+      background: $bg;
+    }
+
+    &.primary {
+      background: $accent;
+      color: #fff;
+      border-color: $accent;
+
+      &:hover {
+        background: darken($accent, 8%);
+      }
+    }
+  }
+
+  .applied-badge {
+    font-size: 13px;
+    color: $green;
+    font-weight: 500;
+  }
+}
+
+// Pagination
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  font-size: 14px;
+  color: $muted;
+
+  button {
+    padding: 6px 14px;
+    border: 1px solid $border;
+    border-radius: 6px;
+    background: $surface;
+    color: $text;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover:not([disabled]) {
+      background: $bg;
+    }
+
+    &[disabled] {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<div class="dashboard">
+  <!-- Stats bar -->
+  <header class="stats-bar" *ngIf="stats">
+    <span>Total: {{ stats.total }}</span>
+    <span class="highlight">Unseen: {{ stats.unseen }}</span>
+    <span>Applied: {{ stats.applied }}</span>
+    <span *ngIf="stats.avg_score">Avg score: {{ stats.avg_score }}/10</span>
+  </header>
+
+  <!-- Filters -->
+  <section class="filters">
+    <input
+      type="text"
+      placeholder="Search title, company, description…"
+      [(ngModel)]="keyword"
+      (input)="onFilterChange()"
+    />
+    <label>
+      Min score
+      <input type="number" min="0" max="10" [(ngModel)]="filters.min_score" (change)="onFilterChange()" />
+    </label>
+    <label>
+      <input type="checkbox" [(ngModel)]="filters.remote_only" (change)="onFilterChange()" />
+      Remote only
+    </label>
+    <label>
+      <input type="checkbox" [ngModel]="filters.seen === false" (change)="filters.seen = $any($event.target).checked ? false : undefined; onFilterChange()" />
+      Unseen only
+    </label>
+  </section>
+
+  <!-- Job list -->
+  <ul class="job-list">
+    <li *ngFor="let job of jobs" [class.seen]="job.seen" [class.applied]="job.applied">
+      <div class="job-header">
+        <div>
+          <a [href]="job.url" target="_blank" rel="noopener">{{ job.title }}</a>
+          <span class="company">{{ job.company }}</span>
+          <span class="location">{{ job.location }}</span>
+        </div>
+        <span class="score" *ngIf="job.relevance_score != null">{{ job.relevance_score }}/10</span>
+      </div>
+
+      <div class="job-meta">
+        <span class="source">{{ job.source }}</span>
+        <span *ngIf="job.remote" class="remote-badge">Remote</span>
+        <span *ngIf="job.salary" class="salary">{{ job.salary }}</span>
+        <span class="date">{{ job.posted_date | slice:0:10 }}</span>
+      </div>
+
+      <div class="job-actions">
+        <button *ngIf="!job.seen" (click)="markSeen(job)">Mark seen</button>
+        <button *ngIf="!job.applied" (click)="markApplied(job)" class="primary">Mark applied</button>
+        <span *ngIf="job.applied" class="applied-badge">✓ Applied</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="(filters.offset ?? 0) === 0">← Prev</button>
+    <span>Page {{ ((filters.offset ?? 0) / (filters.limit ?? 50)) + 1 }}</span>
+    <button (click)="nextPage()" [disabled]="jobs.length < (filters.limit ?? 50)">Next →</button>
+  </div>
+</div>
